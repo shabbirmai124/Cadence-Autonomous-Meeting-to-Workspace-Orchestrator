@@ -1,0 +1,317 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user workspace profile and default Google Sheet preferences.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID matching document ID."
+        },
+        "displayName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "defaultSpreadsheetId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "defaultSpreadsheetName": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "timezone": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "email", "timezone", "createdAt", "updatedAt"]
+    },
+    "Meeting": {
+      "title": "Meeting",
+      "description": "Extracted meeting summary, decisions, ambiguities, consent attestation, and Workspace execution status.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "sourceType": {
+          "type": "string",
+          "enum": ["audio", "image", "text"]
+        },
+        "sourceLabel": {
+          "type": "string",
+          "maxLength": 250
+        },
+        "consentVerified": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "keyDecisions": {
+          "type": "array",
+          "description": "Bounded list of up to 20 key decisions."
+        },
+        "ambiguities": {
+          "type": "array",
+          "description": "Bounded list of up to 20 unresolved ambiguities flagged by Gemini."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "executed"]
+        },
+        "spreadsheetId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "spreadsheetUrl": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "actionItemCount": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "executedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "title",
+        "sourceType",
+        "sourceLabel",
+        "consentVerified",
+        "summary",
+        "keyDecisions",
+        "ambiguities",
+        "status",
+        "actionItemCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ActionItem": {
+      "title": "ActionItem",
+      "description": "An editable action item extracted from a meeting with priority, confidence score, HITL verification, email draft, and Workspace sync state.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "meetingId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "task": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "assignee": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "assigneeEmail": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "dueDate": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["High", "Medium", "Low"]
+        },
+        "confidenceScore": {
+          "type": "number"
+        },
+        "verifiedByUser": {
+          "type": "boolean"
+        },
+        "emailSubject": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "emailBody": {
+          "type": "string",
+          "maxLength": 5000
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "executed", "failed"]
+        },
+        "calendarEventUrl": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "gmailDraftId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "sheetUpdated": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "meetingId",
+        "ownerId",
+        "task",
+        "assignee",
+        "assigneeEmail",
+        "dueDate",
+        "priority",
+        "confidenceScore",
+        "verifiedByUser",
+        "emailSubject",
+        "emailBody",
+        "status",
+        "sheetUpdated",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable SOC 2 / ISO 27001 compliance audit record written upon human approval and Workspace execution.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "meetingId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "meetingTitle": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "consentVerified": {
+          "type": "boolean"
+        },
+        "humanReviewer": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "actionsSummary": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "sheetsCount": {
+          "type": "integer"
+        },
+        "calendarCount": {
+          "type": "integer"
+        },
+        "gmailDraftCount": {
+          "type": "integer"
+        },
+        "spreadsheetId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "meetingId",
+        "meetingTitle",
+        "consentVerified",
+        "humanReviewer",
+        "actionsSummary",
+        "sheetsCount",
+        "calendarCount",
+        "gmailDraftCount",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profile and Workspace settings document owned strictly by {userId}."
+    },
+    "/meetings/{meetingId}": {
+      "schema": { "$ref": "#/entities/Meeting" },
+      "description": "Meeting analysis records owned by a single user."
+    },
+    "/meetings/{meetingId}/actionItems/{itemId}": {
+      "schema": { "$ref": "#/entities/ActionItem" },
+      "description": "Action items belonging to a parent meeting document."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Immutable per-user compliance audit trail records."
+    }
+  }
+}

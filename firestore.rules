@@ -1,0 +1,243 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isEmailVerified() {
+      return request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidUserProfile(data, userId) {
+      return data.keys().hasAll(['uid', 'displayName', 'email', 'timezone', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'displayName', 'email', 'defaultSpreadsheetId', 'defaultSpreadsheetName', 'timezone', 'createdAt', 'updatedAt'])
+        && isValidId(data.uid)
+        && data.uid == request.auth.uid
+        && data.uid == userId
+        && data.displayName is string && data.displayName.size() <= 120
+        && data.email is string && data.email.size() <= 200
+        && (!('defaultSpreadsheetId' in data) || (data.defaultSpreadsheetId is string && data.defaultSpreadsheetId.size() <= 128))
+        && (!('defaultSpreadsheetName' in data) || (data.defaultSpreadsheetName is string && data.defaultSpreadsheetName.size() <= 200))
+        && data.timezone is string && data.timezone.size() >= 1 && data.timezone.size() <= 80
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidMeeting(data, meetingId) {
+      return data.keys().hasAll(['id', 'ownerId', 'title', 'sourceType', 'sourceLabel', 'consentVerified', 'summary', 'keyDecisions', 'ambiguities', 'status', 'actionItemCount', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['id', 'ownerId', 'title', 'sourceType', 'sourceLabel', 'consentVerified', 'summary', 'keyDecisions', 'ambiguities', 'status', 'spreadsheetId', 'spreadsheetUrl', 'actionItemCount', 'createdAt', 'updatedAt', 'executedAt'])
+        && isValidId(data.id)
+        && data.id == meetingId
+        && isValidId(data.ownerId)
+        && data.ownerId == request.auth.uid
+        && data.title is string && data.title.size() >= 1 && data.title.size() <= 200
+        && data.sourceType in ['audio', 'image', 'text']
+        && data.sourceLabel is string && data.sourceLabel.size() <= 250
+        && data.consentVerified is bool
+        && data.consentVerified == true
+        && data.summary is string && data.summary.size() <= 10000
+        && data.keyDecisions is list
+        && data.keyDecisions.size() <= 20
+        && (data.keyDecisions.size() == 0 || (data.keyDecisions[0] is string && data.keyDecisions[0].size() <= 1000))
+        && data.ambiguities is list
+        && data.ambiguities.size() <= 20
+        && (data.ambiguities.size() == 0 || (data.ambiguities[0] is string && data.ambiguities[0].size() <= 1000))
+        && data.status in ['draft', 'executed']
+        && (!('spreadsheetId' in data) || (data.spreadsheetId is string && data.spreadsheetId.size() <= 128))
+        && (!('spreadsheetUrl' in data) || (data.spreadsheetUrl is string && data.spreadsheetUrl.size() <= 500))
+        && data.actionItemCount is int && data.actionItemCount >= 0 && data.actionItemCount <= 100
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp
+        && (!('executedAt' in data) || data.executedAt is timestamp);
+    }
+
+    function isValidActionItem(data, meetingId, itemId) {
+      return data.keys().hasAll(['id', 'meetingId', 'ownerId', 'task', 'assignee', 'assigneeEmail', 'dueDate', 'priority', 'confidenceScore', 'verifiedByUser', 'emailSubject', 'emailBody', 'status', 'sheetUpdated', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['id', 'meetingId', 'ownerId', 'task', 'assignee', 'assigneeEmail', 'dueDate', 'priority', 'confidenceScore', 'verifiedByUser', 'emailSubject', 'emailBody', 'status', 'calendarEventUrl', 'gmailDraftId', 'sheetUpdated', 'createdAt', 'updatedAt'])
+        && isValidId(data.id)
+        && data.id == itemId
+        && isValidId(data.meetingId)
+        && data.meetingId == meetingId
+        && isValidId(data.ownerId)
+        && data.ownerId == request.auth.uid
+        && data.task is string && data.task.size() >= 1 && data.task.size() <= 500
+        && data.assignee is string && data.assignee.size() <= 160
+        && data.assigneeEmail is string && data.assigneeEmail.size() <= 200
+        && data.dueDate is string && data.dueDate.size() <= 32 && data.dueDate.matches('^\\d{4}-\\d{2}-\\d{2}$')
+        && data.priority in ['High', 'Medium', 'Low']
+        && (data.confidenceScore is float || data.confidenceScore is int)
+        && data.confidenceScore >= 0 && data.confidenceScore <= 1
+        && data.verifiedByUser is bool
+        && data.emailSubject is string && data.emailSubject.size() <= 240
+        && data.emailBody is string && data.emailBody.size() <= 5000
+        && data.status in ['pending', 'executed', 'failed']
+        && (!('calendarEventUrl' in data) || (data.calendarEventUrl is string && data.calendarEventUrl.size() <= 500))
+        && (!('gmailDraftId' in data) || (data.gmailDraftId is string && data.gmailDraftId.size() <= 128))
+        && data.sheetUpdated is bool
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAuditLog(data, logId) {
+      return data.keys().hasAll(['id', 'userId', 'meetingId', 'meetingTitle', 'consentVerified', 'humanReviewer', 'actionsSummary', 'sheetsCount', 'calendarCount', 'gmailDraftCount', 'createdAt'])
+        && data.keys().hasOnly(['id', 'userId', 'meetingId', 'meetingTitle', 'consentVerified', 'humanReviewer', 'actionsSummary', 'sheetsCount', 'calendarCount', 'gmailDraftCount', 'spreadsheetId', 'createdAt'])
+        && isValidId(data.id)
+        && data.id == logId
+        && isValidId(data.userId)
+        && data.userId == request.auth.uid
+        && isValidId(data.meetingId)
+        && data.meetingTitle is string && data.meetingTitle.size() >= 1 && data.meetingTitle.size() <= 200
+        && data.consentVerified is bool
+        && data.humanReviewer is string && data.humanReviewer.size() >= 1 && data.humanReviewer.size() <= 200
+        && data.actionsSummary is string && data.actionsSummary.size() >= 1 && data.actionsSummary.size() <= 500
+        && data.sheetsCount is int && data.sheetsCount >= 0 && data.sheetsCount <= 100
+        && data.calendarCount is int && data.calendarCount >= 0 && data.calendarCount <= 100
+        && data.gmailDraftCount is int && data.gmailDraftCount >= 0 && data.gmailDraftCount <= 100
+        && (!('spreadsheetId' in data) || (data.spreadsheetId is string && data.spreadsheetId.size() <= 128))
+        && data.createdAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn()
+        && isEmailVerified()
+        && isValidId(userId)
+        && isOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isSignedIn()
+        && isEmailVerified()
+        && isValidId(userId)
+        && isOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'email', 'defaultSpreadsheetId', 'defaultSpreadsheetName', 'timezone', 'updatedAt']);
+      allow delete: if isValidId(userId) && isOwner(userId) && isEmailVerified();
+    }
+
+    match /meetings/{meetingId} {
+      allow get: if isSignedIn()
+        && isValidId(meetingId)
+        && existing().ownerId == request.auth.uid;
+      allow list: if isSignedIn()
+        && resource.data.ownerId == request.auth.uid;
+      allow create: if isSignedIn()
+        && isEmailVerified()
+        && isValidId(meetingId)
+        && isValidMeeting(incoming(), meetingId)
+        && incoming().status == 'draft'
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isSignedIn()
+        && isEmailVerified()
+        && isValidId(meetingId)
+        && isValidMeeting(incoming(), meetingId)
+        && existing().ownerId == request.auth.uid
+        && incoming().ownerId == existing().ownerId
+        && incoming().id == existing().id
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && existing().status != 'executed'
+        && (
+          (incoming().status == 'draft'
+            && incoming().diff(existing()).affectedKeys().hasOnly(['title', 'summary', 'keyDecisions', 'ambiguities', 'spreadsheetId', 'spreadsheetUrl', 'actionItemCount', 'updatedAt']))
+          ||
+          (incoming().status == 'executed'
+            && ('executedAt' in incoming())
+            && incoming().executedAt == request.time
+            && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'spreadsheetId', 'spreadsheetUrl', 'executedAt', 'updatedAt']))
+        );
+      allow delete: if isSignedIn()
+        && isEmailVerified()
+        && isValidId(meetingId)
+        && existing().ownerId == request.auth.uid;
+
+      match /actionItems/{itemId} {
+        allow get: if isSignedIn()
+          && isValidId(meetingId)
+          && isValidId(itemId)
+          && existing().ownerId == request.auth.uid
+          && get(/databases/$(database)/documents/meetings/$(meetingId)).data.ownerId == request.auth.uid;
+        allow list: if isSignedIn()
+          && resource.data.ownerId == request.auth.uid;
+        allow create: if isSignedIn()
+          && isEmailVerified()
+          && isValidId(meetingId)
+          && isValidId(itemId)
+          && isValidActionItem(incoming(), meetingId, itemId)
+          && incoming().status == 'pending'
+          && incoming().createdAt == request.time
+          && incoming().updatedAt == request.time
+          && existsAfter(/databases/$(database)/documents/meetings/$(meetingId))
+          && getAfter(/databases/$(database)/documents/meetings/$(meetingId)).data.ownerId == request.auth.uid
+          && getAfter(/databases/$(database)/documents/meetings/$(meetingId)).data.status != 'executed';
+        allow update: if isSignedIn()
+          && isEmailVerified()
+          && isValidId(meetingId)
+          && isValidId(itemId)
+          && isValidActionItem(incoming(), meetingId, itemId)
+          && existing().ownerId == request.auth.uid
+          && incoming().ownerId == existing().ownerId
+          && incoming().meetingId == existing().meetingId
+          && incoming().id == existing().id
+          && incoming().createdAt == existing().createdAt
+          && incoming().updatedAt == request.time
+          && get(/databases/$(database)/documents/meetings/$(meetingId)).data.ownerId == request.auth.uid
+          && get(/databases/$(database)/documents/meetings/$(meetingId)).data.status != 'executed'
+          && (
+            (incoming().status == 'pending'
+              && incoming().diff(existing()).affectedKeys().hasOnly(['task', 'assignee', 'assigneeEmail', 'dueDate', 'priority', 'confidenceScore', 'verifiedByUser', 'emailSubject', 'emailBody', 'updatedAt']))
+            ||
+            (incoming().status in ['executed', 'failed']
+              && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'calendarEventUrl', 'gmailDraftId', 'sheetUpdated', 'verifiedByUser', 'updatedAt']))
+          );
+        allow delete: if isSignedIn()
+          && isEmailVerified()
+          && isValidId(meetingId)
+          && isValidId(itemId)
+          && existing().ownerId == request.auth.uid
+          && get(/databases/$(database)/documents/meetings/$(meetingId)).data.ownerId == request.auth.uid;
+      }
+    }
+
+    match /audit_logs/{logId} {
+      allow get: if isSignedIn()
+        && isValidId(logId)
+        && existing().userId == request.auth.uid;
+      allow list: if isSignedIn()
+        && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn()
+        && isEmailVerified()
+        && isValidId(logId)
+        && isValidAuditLog(incoming(), logId)
+        && incoming().createdAt == request.time;
+      allow update, delete: if false; // Immutable SOC 2 compliance audit log
+    }
+  }
+}

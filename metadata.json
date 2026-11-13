@@ -1,0 +1,10 @@
+{
+  "name": "Cadence",
+  "description": "An enterprise-grade, human-in-the-loop (HITL) orchestration agent that converts meeting audio, whiteboard photos, and transcripts into structured action items using Gemini Structured Outputs, syncing verified tasks to Google Sheets, Google Calendar, and Gmail Drafts with GDPR Art. 6 consent gating, XML prompt-injection defense, and immutable Firestore audit logs.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
