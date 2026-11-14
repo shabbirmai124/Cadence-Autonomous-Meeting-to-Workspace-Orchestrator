@@ -125,6 +125,8 @@ Cadence is built as a full-stack **React 19 + TypeScript + Express** application
    ```
 4. Deploy rules to your Firebase project (`firebase deploy --only firestore:rules` or via your provisioning workflow).
 
+> **Repository Secret-Scanning Hygiene**: Although a Firebase Web `apiKey` is a public client identifier, repository scanners flag `AIza...` literals. Keep `firebase-applet-config.json` untracked via `.gitignore` (use `firebase-applet-config.example.json` or `VITE_FIREBASE_*` env vars instead), and restrict your Firebase Web API key in **Google Cloud Console → APIs & Services → Credentials** to approved HTTP referrers and Firebase Auth/Firestore APIs only (never Gemini API).
+
 ### Google Workspace OAuth Scope Setup
 
 In your Google Cloud Console OAuth consent screen and client configuration, enable **Google Sheets API**, **Google Calendar API**, and **Gmail API**, and authorize these exact least-privilege scopes:
