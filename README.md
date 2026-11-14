@@ -114,7 +114,10 @@ Cadence is built as a full-stack **React 19 + TypeScript + Express** application
 
 ### Firebase & Cloud Firestore Configuration
 
-1. Confirm `firebase-applet-config.json` in the project root contains your Firebase Web configuration (`apiKey`, `authDomain`, `projectId`, `firestoreDatabaseId`, etc.).
+1. Copy the template config and populate your Firebase Web configuration (`apiKey`, `authDomain`, `projectId`, `firestoreDatabaseId`, etc.) — `firebase-applet-config.json` is listed in `.gitignore` so credentials are never pushed to version control (alternatively, set the `VITE_FIREBASE_*` environment variables shown in `.env.example`):
+   ```bash
+   cp firebase-applet-config.example.json firebase-applet-config.json
+   ```
 2. Verify `firestore.rules` matches the schema contract in `firebase-blueprint.json`.
 3. Validate Firestore security rules statically before deployment using the Firebase security ESLint plugin:
    ```bash
