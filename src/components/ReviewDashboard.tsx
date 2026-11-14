@@ -190,12 +190,12 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
   return (
     <section
       aria-label="Extracted Meeting Action Plan"
-      className="rounded-lg border border-slate-200 bg-white p-4 sm:p-6 space-y-6"
+      className="rounded-xl border border-zinc-200 bg-white p-4 sm:p-6 space-y-6 shadow-xs"
     >
       {/* Header & Unboxed Metadata */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between border-b border-slate-200 pb-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between border-b border-zinc-200 pb-5">
         <div className="min-w-0 flex-1 space-y-2">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
             <span className="capitalize">Source: {meeting.sourceType}</span>
             <span aria-hidden="true">·</span>
             <span className="font-mono tabular-nums">
@@ -214,7 +214,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
             {isSaving && (
               <>
                 <span aria-hidden="true">·</span>
-                <span className="text-slate-400">Syncing draft...</span>
+                <span className="text-zinc-400">Syncing draft...</span>
               </>
             )}
           </div>
@@ -225,7 +225,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
             disabled={isExecuted}
             value={meeting.title}
             onChange={(e) => onUpdateMeetingField({ title: e.target.value })}
-            className="w-full rounded-md border border-transparent bg-transparent px-1 py-0.5 font-display text-base sm:text-xl font-semibold text-slate-900 hover:border-slate-200 focus:border-blue-700 focus:bg-white focus:outline-none disabled:hover:border-transparent"
+            className="w-full rounded-md border border-transparent bg-transparent px-1 py-0.5 font-display text-base sm:text-xl font-semibold text-zinc-950 hover:border-zinc-200 focus:border-zinc-950 focus:bg-white focus:outline-none disabled:hover:border-transparent"
           />
         </div>
 
@@ -233,7 +233,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
           <button
             type="button"
             onClick={handleDownloadBrief}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
           >
             <Download className="h-3.5 w-3.5" />
             <span>Export Brief (.md)</span>
@@ -243,7 +243,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
             <button
               type="button"
               onClick={onCloneAsDraft}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
             >
               <Copy className="h-3.5 w-3.5" />
               <span>Clone as New Draft</span>
@@ -255,7 +255,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
               href={meeting.spreadsheetUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3.5 py-2 text-xs font-medium text-emerald-800 hover:bg-emerald-100 whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-900 bg-zinc-950 px-3.5 py-2 text-xs font-medium text-white hover:bg-zinc-800 whitespace-nowrap shrink-0"
             >
               <FileSpreadsheet className="h-4 w-4" />
               <span>Open Google Sheet</span>
@@ -270,34 +270,34 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
         <div className="space-y-2">
           <label
             htmlFor="meeting-summary-input"
-            className="block text-xs font-semibold text-slate-700"
+            className="block text-xs font-semibold text-zinc-800"
           >
             Executive Summary
           </label>
           <textarea
             id="meeting-summary-input"
-            rows={5}
+            rows={6}
             disabled={isExecuted}
             value={meeting.summary}
             onChange={(e) => onUpdateMeetingField({ summary: e.target.value })}
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm leading-relaxed text-slate-800 focus:border-blue-700 focus:bg-white focus:outline-none disabled:opacity-80"
+            className="min-h-[156px] sm:min-h-[132px] w-full rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm leading-relaxed text-zinc-900 focus:border-zinc-950 focus:bg-white focus:outline-none disabled:opacity-80"
           />
         </div>
 
         <div className="space-y-2">
-          <div className="text-xs font-semibold text-slate-700">
+          <div className="text-xs font-semibold text-zinc-800">
             Key Decisions ({meeting.keyDecisions.length})
           </div>
           <ul className="space-y-2">
             {meeting.keyDecisions.length === 0 && (
-              <li className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-500">
+              <li className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-500">
                 No explicit decisions recorded.
               </li>
             )}
             {meeting.keyDecisions.map((decision, idx) => (
               <li
                 key={idx}
-                className="flex items-start justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800"
+                className="flex items-start justify-between gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900"
               >
                 <span className="leading-snug">{decision}</span>
                 {!isExecuted && (
@@ -305,7 +305,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                     type="button"
                     aria-label={`Remove decision ${idx + 1}`}
                     onClick={() => handleRemoveDecision(idx)}
-                    className="shrink-0 text-slate-400 hover:text-red-700 cursor-pointer"
+                    className="shrink-0 text-zinc-400 hover:text-red-700 cursor-pointer"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -327,12 +327,12 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                   }
                 }}
                 placeholder="Add a finalized decision..."
-                className="flex-1 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-blue-700 focus:outline-none"
+                className="flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs text-zinc-950 focus:border-zinc-950 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={handleAddDecision}
-                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+                className="rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
               >
                 Add Decision
               </button>
@@ -379,14 +379,14 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
       {/* Editable Action Items Table */}
       <div className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="text-sm font-semibold text-slate-900">
+          <h3 className="text-sm font-semibold text-zinc-950">
             Action Items & Follow-Up Drafts
           </h3>
           {!isExecuted && (
             <button
               type="button"
               onClick={handleAddNewRow}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
             >
               <Plus className="h-3.5 w-3.5" />
               <span>Add Action Item</span>
@@ -394,10 +394,10 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
           )}
         </div>
 
-        <div className="overflow-x-auto rounded-lg border border-slate-200">
+        <div className="overflow-x-auto rounded-lg border border-zinc-200">
           <table className="w-full min-w-[860px] border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-xs font-medium text-slate-600">
+              <tr className="border-b border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-600">
                 {!isExecuted && (
                   <th className="w-10 px-3 py-2.5 text-center">
                     <input
@@ -405,7 +405,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                       aria-label="Select all action items"
                       checked={allSelected}
                       onChange={handleToggleAll}
-                      className="h-3.5 w-3.5 rounded border-slate-300 text-blue-700 focus:ring-blue-700"
+                      className="h-3.5 w-3.5 rounded border-zinc-400 text-zinc-950 focus:ring-zinc-950"
                     />
                   </th>
                 )}
@@ -417,7 +417,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                 <th className="px-3 py-2.5 w-44 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-zinc-200">
               {meeting.actionItems.map((item, idx) => {
                 const isSelected = !deselectedIds.has(item.id);
                 const isLowConfidence =
@@ -432,8 +432,8 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                         needsVerification && isSelected
                           ? 'bg-amber-50/70'
                           : !isSelected && !isExecuted
-                          ? 'bg-slate-50/70 opacity-60'
-                          : 'bg-white hover:bg-slate-50/60'
+                          ? 'bg-zinc-50 opacity-55'
+                          : 'bg-white hover:bg-zinc-50/70'
                       }
                     >
                       {!isExecuted && (
@@ -443,7 +443,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                             aria-label={`Include row ${idx + 1} in execution`}
                             checked={isSelected}
                             onChange={() => handleToggleRow(item.id)}
-                            className="mt-1 h-3.5 w-3.5 rounded border-slate-300 text-blue-700 focus:ring-blue-700"
+                            className="mt-1 h-3.5 w-3.5 rounded border-zinc-400 text-zinc-950 focus:ring-zinc-950"
                           />
                         </td>
                       )}
@@ -457,10 +457,10 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                           onChange={(e) =>
                             onUpdateActionItem({ ...item, task: e.target.value })
                           }
-                          className="w-full min-h-[68px] resize-none rounded border border-slate-200 bg-white px-2.5 py-1.5 text-xs leading-relaxed text-slate-900 focus:border-blue-700 focus:outline-none disabled:bg-transparent disabled:border-transparent"
+                          className="w-full min-h-[68px] resize-none rounded border border-zinc-200 bg-white px-2.5 py-1.5 text-xs leading-relaxed text-zinc-950 focus:border-zinc-950 focus:outline-none disabled:bg-transparent disabled:border-transparent"
                         />
                         {isExecuted && (
-                          <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs text-slate-500">
+                          <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
                             <span className="inline-flex items-center gap-1 text-emerald-700">
                               <FileSpreadsheet className="h-3 w-3" />
                               {item.sheetUpdated ? 'Sheet synced' : 'Sheet skipped'}
@@ -470,14 +470,14 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                                 href={item.calendarEventUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1 text-blue-700 hover:underline"
+                                className="inline-flex items-center gap-1 text-zinc-950 underline"
                               >
                                 <Calendar className="h-3 w-3" />
                                 <span>Calendar Event</span>
                               </a>
                             )}
                             {item.gmailDraftId && (
-                              <span className="inline-flex items-center gap-1 font-mono text-slate-600">
+                              <span className="inline-flex items-center gap-1 font-mono text-zinc-600">
                                 <Mail className="h-3 w-3" />
                                 Draft #{item.gmailDraftId.slice(0, 8)}
                               </span>
@@ -496,7 +496,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                             onUpdateActionItem({ ...item, assignee: e.target.value })
                           }
                           placeholder="Owner name"
-                          className="w-full rounded border border-slate-200 bg-white px-2 py-1 text-xs font-medium text-slate-900 focus:border-blue-700 focus:outline-none disabled:bg-transparent disabled:border-transparent"
+                          className="w-full rounded border border-zinc-200 bg-white px-2 py-1 text-xs font-medium text-zinc-950 focus:border-zinc-950 focus:outline-none disabled:bg-transparent disabled:border-transparent"
                         />
                         <input
                           type="email"
@@ -507,7 +507,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                             onUpdateActionItem({ ...item, assigneeEmail: e.target.value })
                           }
                           placeholder="owner@company.com"
-                          className="w-full rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-600 focus:border-blue-700 focus:outline-none disabled:bg-transparent disabled:border-transparent"
+                          className="w-full rounded border border-zinc-200 bg-white px-2 py-1 font-mono text-xs text-zinc-600 focus:border-zinc-950 focus:outline-none disabled:bg-transparent disabled:border-transparent"
                         />
                       </td>
 
@@ -520,7 +520,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                           onChange={(e) =>
                             onUpdateActionItem({ ...item, dueDate: e.target.value })
                           }
-                          className="w-full rounded border border-slate-200 bg-white px-2 py-1.5 font-mono text-xs tabular-nums text-slate-800 focus:border-blue-700 focus:outline-none disabled:bg-transparent disabled:border-transparent"
+                          className="w-full rounded border border-zinc-200 bg-white px-2 py-1.5 font-mono text-xs tabular-nums text-zinc-900 focus:border-zinc-950 focus:outline-none disabled:bg-transparent disabled:border-transparent"
                         />
                       </td>
 
@@ -535,7 +535,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                               priority: e.target.value as ActionItemPriority,
                             })
                           }
-                          className="w-full rounded border border-slate-200 bg-white px-2 py-1.5 text-xs text-slate-800 focus:border-blue-700 focus:outline-none disabled:bg-transparent disabled:border-transparent"
+                          className="w-full rounded border border-zinc-200 bg-white px-2 py-1.5 text-xs text-zinc-900 focus:border-zinc-950 focus:outline-none disabled:bg-transparent disabled:border-transparent"
                         >
                           <option value="High">High</option>
                           <option value="Medium">Medium</option>
@@ -576,7 +576,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                               setExpandedEmailId(isEmailOpen ? null : item.id)
                             }
                             aria-expanded={isEmailOpen}
-                            className="inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+                            className="inline-flex items-center gap-1 rounded border border-zinc-300 bg-white px-2.5 py-1 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
                           >
                             <Mail className="h-3 w-3" />
                             <span>{isEmailOpen ? 'Hide Email' : 'Draft Email'}</span>
@@ -586,7 +586,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                               type="button"
                               aria-label={`Remove action item: ${item.task}`}
                               onClick={() => onDeleteActionItem(item.id)}
-                              className="rounded border border-slate-200 p-1.5 text-slate-400 hover:border-red-200 hover:bg-red-50 hover:text-red-700 cursor-pointer"
+                              className="rounded border border-zinc-200 p-1.5 text-zinc-400 hover:border-red-200 hover:bg-red-50 hover:text-red-700 cursor-pointer"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </button>
@@ -596,16 +596,16 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                     </tr>
 
                     {isEmailOpen && (
-                      <tr className="bg-slate-50">
+                      <tr className="bg-zinc-50">
                         <td colSpan={isExecuted ? 6 : 7} className="px-4 py-3.5">
-                          <div className="space-y-2.5 rounded-lg border border-slate-200 bg-white p-4">
-                            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-                              <span className="font-semibold text-slate-800">
+                          <div className="space-y-2.5 rounded-lg border border-zinc-200 bg-white p-4">
+                            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-500">
+                              <span className="font-semibold text-zinc-950">
                                 Gmail Draft Preview & Editor (Drafts Folder Only)
                               </span>
                               <span>
                                 Recipient:{' '}
-                                <span className="font-mono text-slate-700">
+                                <span className="font-mono text-zinc-800">
                                   {item.assigneeEmail || 'Blank (fill before sending in Gmail)'}
                                 </span>
                               </span>
@@ -621,7 +621,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                                   emailSubject: e.target.value,
                                 })
                               }
-                              className="w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-900 focus:border-blue-700 focus:outline-none"
+                              className="w-full rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-950 focus:border-zinc-950 focus:outline-none"
                             />
                             <textarea
                               rows={4}
@@ -634,7 +634,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                                   emailBody: e.target.value,
                                 })
                               }
-                              className="w-full rounded-md border border-slate-300 bg-white p-3 text-xs leading-relaxed text-slate-800 focus:border-blue-700 focus:outline-none"
+                              className="w-full rounded-md border border-zinc-300 bg-white p-3 text-xs leading-relaxed text-zinc-900 focus:border-zinc-950 focus:outline-none"
                             />
                           </div>
                         </td>
@@ -665,20 +665,20 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
         )}
 
       {/* Workspace Channels, Target Sheet & Approve & Execute Bar */}
-      <div className="flex flex-wrap items-end justify-between gap-6 border-t border-slate-200 pt-5">
+      <div className="flex flex-wrap items-end justify-between gap-6 border-t border-zinc-200 pt-5">
         <div className="flex-1 min-w-[280px] space-y-4">
           <div className="space-y-2">
-            <div className="text-xs font-semibold text-slate-700">
+            <div className="text-xs font-semibold text-zinc-800">
               Workspace Delivery Channels
             </div>
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-700">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-800">
               <label className="inline-flex items-center gap-1.5 cursor-pointer">
                 <input
                   type="checkbox"
                   disabled={isExecuted}
                   checked={targets.sheets}
                   onChange={(e) => setTargets((t) => ({ ...t, sheets: e.target.checked }))}
-                  className="h-3.5 w-3.5 rounded border-slate-300 text-blue-700"
+                  className="h-3.5 w-3.5 rounded border-zinc-400 text-zinc-950"
                 />
                 <span>Google Sheets</span>
               </label>
@@ -688,7 +688,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                   disabled={isExecuted}
                   checked={targets.calendar}
                   onChange={(e) => setTargets((t) => ({ ...t, calendar: e.target.checked }))}
-                  className="h-3.5 w-3.5 rounded border-slate-300 text-blue-700"
+                  className="h-3.5 w-3.5 rounded border-zinc-400 text-zinc-950"
                 />
                 <span>Google Calendar</span>
               </label>
@@ -698,7 +698,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                   disabled={isExecuted}
                   checked={targets.gmail}
                   onChange={(e) => setTargets((t) => ({ ...t, gmail: e.target.checked }))}
-                  className="h-3.5 w-3.5 rounded border-slate-300 text-blue-700"
+                  className="h-3.5 w-3.5 rounded border-zinc-400 text-zinc-950"
                 />
                 <span>Gmail Drafts</span>
               </label>
@@ -707,11 +707,11 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
 
           {targets.sheets && (
             <div className="space-y-2">
-              <div className="text-xs font-semibold text-slate-700">
+              <div className="text-xs font-semibold text-zinc-800">
                 Target Google Sheet Destination
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <label className="inline-flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer">
+                <label className="inline-flex items-center gap-1.5 text-xs text-zinc-800 cursor-pointer">
                   <input
                     type="radio"
                     name="sheetMode"
@@ -721,7 +721,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                   />
                   <span>Create New Google Sheet</span>
                 </label>
-                <label className="inline-flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer">
+                <label className="inline-flex items-center gap-1.5 text-xs text-zinc-800 cursor-pointer">
                   <input
                     type="radio"
                     name="sheetMode"
@@ -740,7 +740,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                   value={spreadsheetInput}
                   onChange={(e) => setSpreadsheetInput(e.target.value)}
                   placeholder="Paste Google Sheets URL or Spreadsheet ID..."
-                  className="w-full max-w-md rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs text-slate-800 focus:border-blue-700 focus:outline-none"
+                  className="w-full max-w-md rounded-lg border border-zinc-300 bg-white px-3 py-1.5 font-mono text-xs text-zinc-950 focus:border-zinc-950 focus:outline-none"
                 />
               )}
             </div>
@@ -752,7 +752,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
             <button
               type="button"
               onClick={onRequireSignIn}
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-800 whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-4 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 whitespace-nowrap shrink-0 cursor-pointer"
             >
               <ShieldCheck className="h-4 w-4" />
               <span>Sign in with Google to Execute</span>
@@ -769,7 +769,7 @@ export const ReviewDashboard: React.FC<ReviewDashboardProps> = ({
                   targets,
                 })
               }
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
             >
               <CheckCircle2 className="h-4 w-4" />
               <span>

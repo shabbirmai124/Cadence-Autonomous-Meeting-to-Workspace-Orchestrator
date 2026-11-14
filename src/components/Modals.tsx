@@ -53,25 +53,25 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 p-4 backdrop-blur-[1px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="execute-dialog-title"
     >
-      <div className="w-full max-w-lg rounded-lg border border-slate-200 bg-white p-6 shadow-xl">
+      <div className="w-full max-w-lg rounded-xl border border-zinc-200 bg-white p-6 shadow-2xl">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-blue-200 bg-blue-50 text-blue-700">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-900 bg-zinc-950 text-white">
               <ShieldCheck className="h-5 w-5" />
             </div>
             <div>
               <h2
                 id="execute-dialog-title"
-                className="text-base font-semibold text-slate-900"
+                className="text-base font-semibold text-zinc-950"
               >
                 Confirm Workspace Execution
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-zinc-500">
                 Human-in-the-Loop approval required before mutating Workspace data
               </p>
             </div>
@@ -81,17 +81,17 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
             onClick={onCancel}
             disabled={isExecuting}
             aria-label="Close confirmation dialog"
-            className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+            className="rounded-md p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        <div className="mt-5 space-y-3 border-y border-slate-200 py-4 text-sm text-slate-700">
-          <p className="text-slate-600">
-            Approving <span className="font-semibold text-slate-900">{meetingTitle}</span> will
+        <div className="mt-5 space-y-3 border-y border-zinc-200 py-4 text-sm text-zinc-700">
+          <p className="text-zinc-600">
+            Approving <span className="font-semibold text-zinc-950">{meetingTitle}</span> will
             execute the selected Workspace channels for{' '}
-            <span className="font-mono tabular-nums font-medium text-slate-900">
+            <span className="font-mono tabular-nums font-medium text-zinc-950">
               {items.length}
             </span>{' '}
             action item(s) and write an immutable audit entry:
@@ -99,9 +99,9 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
           <ul className="space-y-2.5 text-sm">
             {targets.sheets && (
               <li className="flex items-start gap-2.5">
-                <FileSpreadsheet className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
+                <FileSpreadsheet className="mt-0.5 h-4 w-4 shrink-0 text-zinc-900" />
                 <span>
-                  <strong className="font-medium text-slate-900">Google Sheets:</strong>{' '}
+                  <strong className="font-medium text-zinc-950">Google Sheets:</strong>{' '}
                   {createNewSheet || !spreadsheetInput.trim()
                     ? `Create a new tracker sheet and append ${items.length} action row(s).`
                     : `Append ${items.length} row(s) to spreadsheet ${spreadsheetInput.trim()}.`}
@@ -110,9 +110,9 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
             )}
             {targets.calendar && (
               <li className="flex items-start gap-2.5">
-                <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-blue-700" />
+                <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-zinc-900" />
                 <span>
-                  <strong className="font-medium text-slate-900">Google Calendar:</strong> Create{' '}
+                  <strong className="font-medium text-zinc-950">Google Calendar:</strong> Create{' '}
                   <span className="font-mono tabular-nums">{items.length}</span> scheduled due-date
                   event(s) on your primary calendar.
                 </span>
@@ -120,12 +120,12 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
             )}
             {targets.gmail && (
               <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-slate-700" />
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-zinc-900" />
                 <span>
-                  <strong className="font-medium text-slate-900">Gmail (Drafts Only):</strong>{' '}
+                  <strong className="font-medium text-zinc-950">Gmail (Drafts Only):</strong>{' '}
                   Create <span className="font-mono tabular-nums">{items.length}</span> follow-up
                   draft email(s) tagged with{' '}
-                  <code className="rounded bg-slate-100 px-1 py-0.5 text-xs">
+                  <code className="rounded bg-zinc-100 px-1 py-0.5 text-xs">
                     [AI-Assisted Draft • Verified by User]
                   </code>
                   . Emails are never auto-sent.
@@ -140,7 +140,7 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
             type="button"
             onClick={onCancel}
             disabled={isExecuting}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
+            className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 hover:bg-zinc-100 disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
           >
             Cancel
           </button>
@@ -148,7 +148,7 @@ export const ExecuteConfirmModal: React.FC<ExecuteConfirmModalProps> = ({
             type="button"
             onClick={onConfirm}
             disabled={isExecuting}
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 disabled:opacity-60 whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-60 whitespace-nowrap shrink-0 cursor-pointer"
           >
             <CheckCircle2 className="h-4 w-4" />
             <span>{isExecuting ? 'Executing Workspace Sync...' : 'Confirm & Execute'}</span>
@@ -183,21 +183,21 @@ export const DangerConfirmModal: React.FC<DangerConfirmModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 p-4 backdrop-blur-[1px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="danger-dialog-title"
     >
-      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-xl">
+      <div className="w-full max-w-md rounded-xl border border-zinc-200 bg-white p-6 shadow-xl">
         <div className="flex items-start gap-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-red-200 bg-red-50 text-red-700">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
-            <h2 id="danger-dialog-title" className="text-base font-semibold text-slate-900">
+            <h2 id="danger-dialog-title" className="text-base font-semibold text-zinc-950">
               {title}
             </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{description}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">{description}</p>
           </div>
         </div>
         <div className="mt-6 flex items-center justify-end gap-3">
@@ -205,7 +205,7 @@ export const DangerConfirmModal: React.FC<DangerConfirmModalProps> = ({
             type="button"
             onClick={onCancel}
             disabled={isBusy}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 cursor-pointer"
+            className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 hover:bg-zinc-100 cursor-pointer"
           >
             Cancel
           </button>
@@ -243,20 +243,20 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 p-4 backdrop-blur-[1px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="privacy-modal-title"
     >
-      <div className="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-slate-200 bg-white p-6 shadow-xl">
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-zinc-200 bg-white p-6 shadow-2xl">
+        <div className="flex items-start justify-between gap-4 border-b border-zinc-200 pb-4">
           <div className="flex items-center gap-2.5">
-            <Lock className="h-5 w-5 text-blue-700" />
+            <Lock className="h-5 w-5 text-zinc-950" />
             <div>
-              <h2 id="privacy-modal-title" className="text-lg font-semibold text-slate-900">
+              <h2 id="privacy-modal-title" className="text-lg font-semibold text-zinc-950">
                 Privacy Policy, Governance & Terms
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-zinc-500">
                 GDPR · CCPA · EU AI Act · OWASP LLM Top 10 · SOC 2 Readiness
               </p>
             </div>
@@ -265,18 +265,18 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Close privacy policy modal"
-            className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+            className="rounded-md p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        <div className="mt-4 space-y-4 text-sm leading-relaxed text-slate-700">
+        <div className="mt-4 space-y-4 text-sm leading-relaxed text-zinc-700">
           <section>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-zinc-950">
               1. Recording Consent & Legal Basis (GDPR Art. 6)
             </h3>
-            <p className="mt-1 text-slate-600">
+            <p className="mt-1 text-zinc-600">
               Cadence enforces a mandatory participant consent attestation prior to ingesting audio
               recordings, handwritten note photographs, or meeting transcripts. Processing is blocked
               both in the interface and on the backend server until explicit consent is confirmed.
@@ -284,10 +284,10 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
           </section>
 
           <section>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-zinc-950">
               2. Zero-Retention Media Processing
             </h3>
-            <p className="mt-1 text-slate-600">
+            <p className="mt-1 text-zinc-600">
               Uploaded audio recordings and handwritten note images are transmitted strictly for
               server-side structured extraction via Google Gemini without training public models.
               Raw binary media payloads are purged from server and browser memory immediately after
@@ -296,17 +296,17 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
           </section>
 
           <section>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-zinc-950">
               3. Prompt Injection Isolation & Human Oversight
             </h3>
-            <p className="mt-1 text-slate-600">
+            <p className="mt-1 text-zinc-600">
               All untrusted meeting content is isolated inside{' '}
-              <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">
+              <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs">
                 &lt;untrusted_meeting_data&gt;
               </code>{' '}
               XML boundaries. Items below the 0.75 confidence threshold require manual human
               verification before Workspace execution, and generated drafts carry an explicit{' '}
-              <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">
+              <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs">
                 [AI-Assisted Draft • Verified by User]
               </code>{' '}
               disclosure.
@@ -314,10 +314,10 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
           </section>
 
           <section>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-zinc-950">
               4. Scoped OAuth & Immutable Audit Logs
             </h3>
-            <p className="mt-1 text-slate-600">
+            <p className="mt-1 text-zinc-600">
               Cadence requests only minimal Workspace scopes (<code>spreadsheets</code>,{' '}
               <code>calendar.events</code>, and <code>gmail.compose</code> for drafts only—never{' '}
               <code>gmail.send</code>). Every approved execution writes a tamper-evident record to
@@ -326,12 +326,12 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
           </section>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-4">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-200 pt-4">
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={onExportData}
-              className="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-medium text-slate-800 hover:bg-slate-50 cursor-pointer"
+              className="rounded-lg border border-zinc-300 bg-white px-3.5 py-2 text-xs font-medium text-zinc-900 hover:bg-zinc-100 cursor-pointer"
             >
               Export My Data (JSON)
             </button>
@@ -348,7 +348,7 @@ export const PrivacyPolicyModal: React.FC<PrivacyModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-medium text-white hover:bg-slate-800 cursor-pointer"
+            className="rounded-lg bg-zinc-950 px-4 py-2 text-xs font-medium text-white hover:bg-zinc-800 cursor-pointer"
           >
             Close
           </button>
@@ -382,22 +382,22 @@ export const AboutDeveloperModal: React.FC<AboutDeveloperModalProps> = ({ open, 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 p-4 backdrop-blur-[1px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="about-dev-title"
     >
-      <div className="w-full max-w-lg rounded-lg border border-slate-200 bg-white p-6 shadow-xl">
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="w-full max-w-lg rounded-xl border border-zinc-200 bg-white p-6 shadow-2xl">
+        <div className="flex items-start justify-between gap-4 border-b border-zinc-200 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900 text-sm font-semibold text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black text-sm font-semibold text-white">
               MS
             </div>
             <div>
-              <h2 id="about-dev-title" className="text-base font-semibold text-slate-900">
+              <h2 id="about-dev-title" className="text-base font-semibold text-zinc-950">
                 Md Shabbir Mia
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-zinc-500">
                 Enterprise AI Systems Architect & Full-Stack Engineer
               </p>
             </div>
@@ -406,30 +406,30 @@ export const AboutDeveloperModal: React.FC<AboutDeveloperModalProps> = ({ open, 
             type="button"
             onClick={onClose}
             aria-label="Close developer info modal"
-            className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
+            className="rounded-md p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        <div className="mt-4 space-y-3.5 text-sm text-slate-600">
+        <div className="mt-4 space-y-3.5 text-sm text-zinc-600">
           <p className="leading-relaxed">
-            <strong className="font-medium text-slate-900">Cadence</strong> was engineered and
-            architected by <strong className="font-medium text-slate-900">Md Shabbir Mia</strong> as
-            an enterprise meeting-to-workspace orchestration system built around zero-trust tenant
+            <strong className="font-medium text-zinc-950">Cadence</strong> was engineered and
+            architected by <strong className="font-medium text-zinc-950">Md Shabbir Mia</strong> as
+            an enterprise meeting-to-workspace action agent built around zero-trust tenant
             isolation, human-in-the-loop governance, and auditable Workspace execution.
           </p>
 
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-xs space-y-2">
-            <div className="font-semibold text-slate-900 flex items-center gap-1.5">
-              <UserCheck className="h-3.5 w-3.5 text-blue-700" />
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3.5 text-xs space-y-2">
+            <div className="font-semibold text-zinc-950 flex items-center gap-1.5">
+              <UserCheck className="h-3.5 w-3.5 text-zinc-900" />
               <span>Enterprise Architecture & Governance Stack</span>
             </div>
-            <p className="leading-relaxed text-slate-700">
+            <p className="leading-relaxed text-zinc-700">
               React 19 · TypeScript · Express · Google Gemini Structured JSON · Firebase Auth &
               Firestore Tenant Rules · Scoped Google Workspace APIs (Sheets, Calendar, Gmail Drafts)
             </p>
-            <p className="leading-relaxed text-slate-500">
+            <p className="leading-relaxed text-zinc-500">
               Safeguards: GDPR Art. 6 Consent Gate · Zero-Retention Media Purge · OWASP XML
               Sandboxing · EU AI Act HITL (&lt;0.75) Gate · Immutable SOC 2 Audit Ledger
             </p>
@@ -438,15 +438,15 @@ export const AboutDeveloperModal: React.FC<AboutDeveloperModalProps> = ({ open, 
           <div className="flex flex-wrap items-center gap-2.5 pt-1">
             <a
               href={`mailto:${email}`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs font-medium text-slate-800 hover:bg-slate-50"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 py-1.5 font-mono text-xs font-medium text-zinc-900 hover:bg-zinc-100"
             >
-              <Mail className="h-3.5 w-3.5 text-blue-700" />
+              <Mail className="h-3.5 w-3.5 text-zinc-900" />
               <span>{email}</span>
             </a>
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-800 hover:bg-zinc-100 cursor-pointer"
             >
               {copiedEmail ? (
                 <>
@@ -463,11 +463,11 @@ export const AboutDeveloperModal: React.FC<AboutDeveloperModalProps> = ({ open, 
           </div>
         </div>
 
-        <div className="mt-5 flex justify-end border-t border-slate-200 pt-4">
+        <div className="mt-5 flex justify-end border-t border-zinc-200 pt-4">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-medium text-white hover:bg-slate-800 cursor-pointer"
+            className="rounded-lg bg-zinc-950 px-4 py-2 text-xs font-medium text-white hover:bg-zinc-800 cursor-pointer"
           >
             Done
           </button>

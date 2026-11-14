@@ -273,10 +273,10 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
   return (
     <section
       aria-label="Meeting Ingestion Zone"
-      className="rounded-lg border border-slate-200 bg-white"
+      className="rounded-xl border border-zinc-200 bg-white shadow-xs overflow-hidden"
     >
       {/* Workflow Stage Indicator */}
-      <div className="grid grid-cols-1 divide-y divide-slate-200 border-b border-slate-200 bg-slate-50/70 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      <div className="grid grid-cols-1 divide-y divide-zinc-200 border-b border-zinc-200 bg-zinc-50 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         {[
           {
             step: '01',
@@ -297,10 +297,13 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
             active: false,
           },
         ].map((stage) => (
-          <div key={stage.step} className="flex items-start gap-3 px-5 py-3.5">
+          <div
+            key={stage.step}
+            className={`flex items-start gap-3 px-5 py-3.5 ${stage.active ? 'bg-white' : ''}`}
+          >
             <span
               className={`font-mono text-xs font-semibold tabular-nums ${
-                stage.active ? 'text-blue-700' : 'text-slate-400'
+                stage.active ? 'text-zinc-950' : 'text-zinc-400'
               }`}
             >
               {stage.step}.
@@ -308,24 +311,24 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
             <div className="min-w-0">
               <div
                 className={`text-xs font-semibold ${
-                  stage.active ? 'text-slate-900' : 'text-slate-600'
+                  stage.active ? 'text-zinc-950' : 'text-zinc-500'
                 }`}
               >
                 {stage.title}
               </div>
-              <div className="mt-0.5 text-xs text-slate-500">{stage.desc}</div>
+              <div className="mt-0.5 text-xs text-zinc-500">{stage.desc}</div>
             </div>
           </div>
         ))}
       </div>
 
       <div className="p-6 space-y-5">
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-200 pb-5">
+        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-zinc-200 pb-5">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-zinc-950">
               Ingest Meeting Source
             </h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-zinc-500">
               Process meeting audio recordings, whiteboard photographs, or raw transcripts into a
               structured execution plan.
             </p>
@@ -335,7 +338,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
           <div
             role="tablist"
             aria-label="Meeting source input mode"
-            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-100 p-1"
+            className="inline-flex items-center gap-1 rounded-lg border border-zinc-200 bg-zinc-100 p-1"
           >
             <button
               type="button"
@@ -344,8 +347,8 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               onClick={() => handleTabSwitch('text')}
               className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'text'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-zinc-950 text-white shadow-xs'
+                  : 'text-zinc-600 hover:text-zinc-950'
               }`}
             >
               <FileText className="h-3.5 w-3.5" />
@@ -358,8 +361,8 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               onClick={() => handleTabSwitch('audio')}
               className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'audio'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-zinc-950 text-white shadow-xs'
+                  : 'text-zinc-600 hover:text-zinc-950'
               }`}
             >
               <Mic className="h-3.5 w-3.5" />
@@ -372,8 +375,8 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               onClick={() => handleTabSwitch('image')}
               className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'image'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-zinc-950 text-white shadow-xs'
+                  : 'text-zinc-600 hover:text-zinc-950'
               }`}
             >
               <ImageIcon className="h-3.5 w-3.5" />
@@ -386,8 +389,8 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
         <div
           className={`rounded-lg border p-4 transition-colors ${
             consentVerified
-              ? 'border-emerald-200 bg-emerald-50/40'
-              : 'border-slate-200 bg-slate-50'
+              ? 'border-zinc-950 bg-zinc-50'
+              : 'border-zinc-200 bg-zinc-50/70'
           }`}
         >
           <label className="flex cursor-pointer items-start gap-3">
@@ -395,10 +398,10 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               type="checkbox"
               checked={consentVerified}
               onChange={(e) => onConsentChange(e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-700 focus:ring-blue-700"
+              className="mt-0.5 h-4 w-4 rounded border-zinc-400 text-zinc-950 focus:ring-zinc-950"
             />
-            <span className="text-xs leading-relaxed text-slate-700">
-              <strong className="font-semibold text-slate-900">
+            <span className="text-xs leading-relaxed text-zinc-700">
+              <strong className="font-semibold text-zinc-950">
                 Mandatory Recording & Processing Consent Attestation (GDPR Art. 6):
               </strong>{' '}
               I confirm that all meeting participants explicitly consented to recording,
@@ -415,7 +418,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <label
                   htmlFor="transcript-input"
-                  className="text-xs font-semibold text-slate-700"
+                  className="text-xs font-semibold text-zinc-800"
                 >
                   Meeting Transcript or Notes
                 </label>
@@ -424,7 +427,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                     aria-label="Choose sample transcript template"
                     value={selectedSampleId}
                     onChange={(e) => setSelectedSampleId(e.target.value)}
-                    className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs text-slate-700"
+                    className="rounded-md border border-zinc-300 bg-white px-2.5 py-1 text-xs text-zinc-800 focus:border-zinc-950 focus:outline-none"
                   >
                     {SAMPLE_MEETING_TEMPLATES.map((t) => (
                       <option key={t.id} value={t.id}>
@@ -435,7 +438,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                   <button
                     type="button"
                     onClick={handlePopulateSampleTranscript}
-                    className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+                    className="rounded-md border border-zinc-300 bg-white px-2.5 py-1 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     Insert Sample Text
                   </button>
@@ -451,24 +454,24 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                   setRedactionNotice(null);
                 }}
                 placeholder="Paste raw meeting transcript, speaker notes, or call summary here..."
-                className="w-full rounded-lg border border-slate-300 bg-white p-3.5 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700"
+                className="w-full rounded-lg border border-zinc-300 bg-white p-3.5 text-sm leading-relaxed text-zinc-950 placeholder:text-zinc-400 focus:border-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
               />
 
               {/* Client-Side Security Pre-Flight Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs text-slate-600">
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-3.5 py-2 text-xs text-zinc-600">
                 <div className="flex flex-wrap items-center gap-3 font-mono tabular-nums">
                   <span>{securityScan.wordCount} words</span>
-                  <span aria-hidden="true" className="text-slate-300">
+                  <span aria-hidden="true" className="text-zinc-300">
                     ·
                   </span>
                   <span>{securityScan.charCount.toLocaleString()} chars</span>
-                  <span aria-hidden="true" className="text-slate-300">
+                  <span aria-hidden="true" className="text-zinc-300">
                     ·
                   </span>
                   <span>{securityScan.emailCount} email(s)</span>
                   {securityScan.sensitiveTokenCount > 0 && (
                     <>
-                      <span aria-hidden="true" className="text-slate-300">
+                      <span aria-hidden="true" className="text-zinc-300">
                         ·
                       </span>
                       <span className="font-sans font-medium text-amber-800">
@@ -525,17 +528,17 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                 onDrop={handleDrop}
                 className={`flex flex-col items-center justify-center rounded-lg border border-dashed p-6 text-center transition-colors ${
                   !consentVerified
-                    ? 'border-slate-200 bg-slate-100 opacity-60 cursor-not-allowed'
+                    ? 'border-zinc-200 bg-zinc-100 opacity-60 cursor-not-allowed'
                     : isDragging
-                    ? 'border-blue-700 bg-blue-50/60 cursor-pointer'
-                    : 'border-slate-300 bg-slate-50 hover:border-blue-600 cursor-pointer'
+                    ? 'border-zinc-950 bg-zinc-100 cursor-pointer'
+                    : 'border-zinc-300 bg-zinc-50 hover:border-zinc-950 cursor-pointer'
                 }`}
               >
-                <Upload className="h-6 w-6 text-slate-500" />
-                <span className="mt-2 text-sm font-medium text-slate-800">
+                <Upload className="h-6 w-6 text-zinc-600" />
+                <span className="mt-2 text-sm font-medium text-zinc-900">
                   Upload or Drop Audio File
                 </span>
-                <span className="mt-1 text-xs text-slate-500">
+                <span className="mt-1 text-xs text-zinc-500">
                   MP3, WAV, M4A, WebM, OGG up to 20 MB (auto-purged)
                 </span>
                 <input
@@ -547,15 +550,15 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                 />
               </label>
 
-              <div className="flex flex-col items-center justify-center rounded-lg border border-slate-200 bg-slate-50 p-6 text-center">
+              <div className="flex flex-col items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 p-6 text-center">
                 {!isRecording ? (
                   <button
                     type="button"
                     disabled={!consentVerified}
                     onClick={startRecording}
-                    className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                    className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                   >
-                    <Mic className="h-4 w-4 text-red-600" />
+                    <Mic className="h-4 w-4 text-zinc-900" />
                     <span>Record Live Audio</span>
                   </button>
                 ) : (
@@ -568,7 +571,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                     <span>Stop Recording ({formatDurationSeconds(recordSeconds)})</span>
                   </button>
                 )}
-                <p className="mt-2 text-xs text-slate-500">
+                <p className="mt-2 text-xs text-zinc-500">
                   {consentVerified
                     ? 'Capture directly from your microphone'
                     : 'Confirm participant consent above to enable recording'}
@@ -577,18 +580,18 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               </div>
 
               {selectedFile && (
-                <div className="md:col-span-2 space-y-2.5 rounded-lg border border-slate-200 bg-white p-3.5 text-xs">
+                <div className="md:col-span-2 space-y-2.5 rounded-lg border border-zinc-200 bg-white p-3.5 text-xs">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="font-medium text-slate-800">
+                    <span className="font-medium text-zinc-900">
                       Ready for extraction: {selectedFile.name}{' '}
-                      <span className="font-mono text-slate-500">
+                      <span className="font-mono text-zinc-500">
                         ({formatBytes(selectedFile.sizeBytes)})
                       </span>
                     </span>
                     <button
                       type="button"
                       onClick={() => setSelectedFile(null)}
-                      className="text-slate-500 hover:text-slate-900 cursor-pointer"
+                      className="text-zinc-500 hover:text-zinc-950 cursor-pointer"
                     >
                       Clear
                     </button>
@@ -602,14 +605,14 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
           {activeTab === 'image' && (
             <div className="space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs font-semibold text-slate-700">
+                <span className="text-xs font-semibold text-zinc-800">
                   Upload Whiteboard or Handwritten Notes Image
                 </span>
                 <button
                   type="button"
                   disabled={!consentVerified}
                   onClick={handleGenerateSampleWhiteboard}
-                  className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
+                  className="rounded-md border border-zinc-300 bg-white px-2.5 py-1 text-xs font-medium text-zinc-800 hover:bg-zinc-100 disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Generate Sample Whiteboard Photo
                 </button>
@@ -624,17 +627,17 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                 onDrop={handleDrop}
                 className={`flex flex-col items-center justify-center rounded-lg border border-dashed p-6 text-center transition-colors ${
                   !consentVerified
-                    ? 'border-slate-200 bg-slate-100 opacity-60 cursor-not-allowed'
+                    ? 'border-zinc-200 bg-zinc-100 opacity-60 cursor-not-allowed'
                     : isDragging
-                    ? 'border-blue-700 bg-blue-50/60 cursor-pointer'
-                    : 'border-slate-300 bg-slate-50 hover:border-blue-600 cursor-pointer'
+                    ? 'border-zinc-950 bg-zinc-100 cursor-pointer'
+                    : 'border-zinc-300 bg-zinc-50 hover:border-zinc-950 cursor-pointer'
                 }`}
               >
-                <ImageIcon className="h-6 w-6 text-slate-500" />
-                <span className="mt-2 text-sm font-medium text-slate-800">
+                <ImageIcon className="h-6 w-6 text-zinc-600" />
+                <span className="mt-2 text-sm font-medium text-zinc-900">
                   Select or Drop Handwritten Notes Image
                 </span>
-                <span className="mt-1 text-xs text-slate-500">
+                <span className="mt-1 text-xs text-zinc-500">
                   PNG, JPG, WebP up to 20 MB (OCR processed in-memory, zero retention)
                 </span>
                 <input
@@ -647,18 +650,18 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               </label>
 
               {selectedFile && (
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3">
                   <div className="mb-2 flex items-center justify-between text-xs">
-                    <span className="font-medium text-slate-800">
+                    <span className="font-medium text-zinc-900">
                       {selectedFile.name}{' '}
-                      <span className="font-mono text-slate-500">
+                      <span className="font-mono text-zinc-500">
                         ({formatBytes(selectedFile.sizeBytes)})
                       </span>
                     </span>
                     <button
                       type="button"
                       onClick={() => setSelectedFile(null)}
-                      className="text-slate-500 hover:text-slate-900 cursor-pointer"
+                      className="text-zinc-500 hover:text-zinc-950 cursor-pointer"
                     >
                       Remove
                     </button>
@@ -667,7 +670,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
                     src={selectedFile.dataUrl}
                     alt="Preview of handwritten meeting notes"
                     referrerPolicy="no-referrer"
-                    className="max-h-56 w-auto rounded border border-slate-200 bg-white object-contain"
+                    className="max-h-56 w-auto rounded border border-zinc-200 bg-white object-contain"
                   />
                 </div>
               )}
@@ -685,9 +688,9 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
         )}
 
         {/* Action Footer */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-4">
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <ShieldCheck className="h-4 w-4 text-emerald-700 shrink-0" />
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-200 pt-4">
+          <div className="flex items-center gap-2 text-xs text-zinc-500">
+            <ShieldCheck className="h-4 w-4 text-zinc-900 shrink-0" />
             <span>
               Prompt-isolated via <code className="font-mono">&lt;untrusted_meeting_data&gt;</code>{' '}
               · Zero media retention
@@ -699,7 +702,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               type="button"
               disabled={!consentVerified || isExtracting}
               onClick={handleInstantSamplePlan}
-              className="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
+              className="rounded-lg border border-zinc-300 bg-white px-3.5 py-2 text-xs font-medium text-zinc-800 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
             >
               Load Sample Extraction
             </button>
@@ -707,7 +710,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
               type="button"
               disabled={!canRunExtraction}
               onClick={handleSubmitExtraction}
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap shrink-0 cursor-pointer"
             >
               <span>{isExtracting ? 'Extracting Action Plan...' : 'Extract Action Plan'}</span>
               <ArrowRight className="h-4 w-4" />
@@ -716,10 +719,10 @@ export const UploadZone: React.FC<UploadZoneProps> = ({
         </div>
 
         {isExtracting && (
-          <div className="space-y-2.5 border-t border-slate-200 pt-5" aria-busy="true">
-            <div className="h-4 w-1/3 animate-pulse rounded bg-slate-200" />
-            <div className="h-10 w-full animate-pulse rounded bg-slate-100" />
-            <div className="h-10 w-5/6 animate-pulse rounded bg-slate-100" />
+          <div className="space-y-2.5 border-t border-zinc-200 pt-5" aria-busy="true">
+            <div className="h-4 w-1/3 animate-pulse rounded bg-zinc-200" />
+            <div className="h-10 w-full animate-pulse rounded bg-zinc-100" />
+            <div className="h-10 w-5/6 animate-pulse rounded bg-zinc-100" />
           </div>
         )}
       </div>

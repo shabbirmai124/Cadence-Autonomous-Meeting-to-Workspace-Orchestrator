@@ -69,10 +69,10 @@ function CadenceBrandMark() {
       aria-hidden="true"
       className="shrink-0"
     >
-      <rect x="2" y="2" width="20" height="20" rx="5" fill="#1D4ED8" />
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="#FFFFFF" />
       <path
         d="M7 14.5V9.5M12 16.5V7.5M17 13.5V10.5"
-        stroke="#FFFFFF"
+        stroke="#09090B"
         strokeWidth="2.2"
         strokeLinecap="round"
       />
@@ -709,10 +709,10 @@ export default function App() {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
+    <div className="flex min-h-screen flex-col bg-zinc-50 text-zinc-950">
       <div className="flex flex-1">
-        {/* Desktop Enterprise Slate Rail */}
-        <aside className="hidden w-64 shrink-0 flex-col justify-between border-r border-slate-800 bg-slate-950 text-slate-200 lg:flex">
+        {/* Desktop Pitch-Black Navigation Rail */}
+        <aside className="hidden w-64 shrink-0 flex-col justify-between border-r border-zinc-800 bg-black text-zinc-200 lg:flex">
           <div className="p-5 space-y-6">
             <div className="flex items-center gap-2.5">
               <CadenceBrandMark />
@@ -729,10 +729,10 @@ export default function App() {
                     key={item.id}
                     type="button"
                     onClick={() => setActiveView(item.id)}
-                    className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
+                    className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap cursor-pointer ${
                       isActive
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'
+                        ? 'bg-white text-black font-semibold'
+                        : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
                     }`}
                   >
                     {item.icon}
@@ -743,8 +743,8 @@ export default function App() {
             </nav>
 
             {meetings.length > 0 && (
-              <div className="border-t border-slate-800 pt-4 space-y-2">
-                <div className="px-2 text-xs font-medium text-slate-400">
+              <div className="border-t border-zinc-800 pt-4 space-y-2">
+                <div className="px-2 text-xs font-medium text-zinc-400">
                   Recent Meetings
                 </div>
                 <div className="space-y-1">
@@ -756,7 +756,7 @@ export default function App() {
                         setCurrentMeeting(m);
                         setActiveView('workbench');
                       }}
-                      className="block w-full truncate rounded-md px-2 py-1.5 text-left text-xs text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer"
+                      className="block w-full truncate rounded-md px-2 py-1.5 text-left text-xs text-zinc-300 hover:bg-zinc-900 hover:text-white cursor-pointer"
                     >
                       {m.title}
                     </button>
@@ -766,7 +766,7 @@ export default function App() {
             )}
           </div>
 
-          <div className="border-t border-slate-800 p-4 space-y-3">
+          <div className="border-t border-zinc-800 p-4 space-y-3">
             {authUser ? (
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2.5">
@@ -775,10 +775,10 @@ export default function App() {
                       src={authUser.photoURL}
                       alt={authUser.displayName || 'User avatar'}
                       referrerPolicy="no-referrer"
-                      className="h-8 w-8 rounded-full border border-slate-700 object-cover"
+                      className="h-8 w-8 rounded-full border border-zinc-700 object-cover"
                     />
                   ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-semibold text-black">
                       {(authUser.displayName || authUser.email || 'U')[0].toUpperCase()}
                     </div>
                   )}
@@ -786,7 +786,7 @@ export default function App() {
                     <div className="truncate text-xs font-semibold text-white">
                       {authUser.displayName || 'Google User'}
                     </div>
-                    <div className="truncate font-mono text-[11px] text-slate-400">
+                    <div className="truncate font-mono text-[11px] text-zinc-400">
                       {authUser.email}
                     </div>
                   </div>
@@ -794,7 +794,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-800 cursor-pointer"
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-1.5 text-xs font-medium text-zinc-200 hover:bg-zinc-900 cursor-pointer"
                 >
                   <LogOut className="h-3.5 w-3.5" />
                   <span>Sign Out</span>
@@ -802,7 +802,7 @@ export default function App() {
               </div>
             ) : (
               <div className="space-y-2.5">
-                <p className="text-xs leading-relaxed text-slate-400">
+                <p className="text-xs leading-relaxed text-zinc-400">
                   Sign in to persist Firestore history and authorize Workspace APIs.
                 </p>
                 <GoogleSignInButton onClick={handleSignIn} compact />
@@ -815,10 +815,10 @@ export default function App() {
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-40 flex lg:hidden">
             <div
-              className="fixed inset-0 bg-slate-950/50"
+              className="fixed inset-0 bg-black/60"
               onClick={() => setMobileMenuOpen(false)}
             />
-            <div className="relative z-50 flex w-64 flex-col justify-between bg-slate-950 p-5 text-slate-200 shadow-xl">
+            <div className="relative z-50 flex w-64 flex-col justify-between border-r border-zinc-800 bg-black p-5 text-zinc-200 shadow-xl">
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -829,7 +829,7 @@ export default function App() {
                     type="button"
                     aria-label="Close navigation menu"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-md p-1 text-slate-400 hover:text-white"
+                    className="rounded-md p-1 text-zinc-400 hover:text-white"
                   >
                     <X className="h-5 w-5" />
                   </button>
@@ -845,8 +845,8 @@ export default function App() {
                       }}
                       className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium ${
                         activeView === item.id
-                          ? 'bg-blue-600/20 text-white'
-                          : 'text-slate-300 hover:bg-slate-900'
+                          ? 'bg-white text-black font-semibold'
+                          : 'text-zinc-300 hover:bg-zinc-900'
                       }`}
                     >
                       {item.icon}
@@ -861,7 +861,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-medium text-slate-200"
+                  className="rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs font-medium text-zinc-200"
                 >
                   Sign Out ({authUser.email})
                 </button>
@@ -871,34 +871,34 @@ export default function App() {
         )}
 
         {/* Main Content Area */}
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="monochrome-grid-bg flex min-w-0 flex-1 flex-col">
           {/* Clean 3-Zone Top Bar */}
-          <header className="flex h-14 items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 sm:px-6">
+          <header className="flex h-14 items-center justify-between gap-4 border-b border-zinc-200 bg-white/95 backdrop-blur-xs px-4 sm:px-6">
             <div className="flex items-center gap-2.5 min-w-0">
               <button
                 type="button"
                 aria-label="Open navigation menu"
                 onClick={() => setMobileMenuOpen(true)}
-                className="rounded-md p-1.5 text-slate-600 hover:bg-slate-100 lg:hidden shrink-0"
+                className="rounded-md p-1.5 text-zinc-700 hover:bg-zinc-100 lg:hidden shrink-0"
               >
                 <Menu className="h-5 w-5" />
               </button>
               <div className="flex items-center gap-2 text-sm min-w-0">
-                <span className="hidden md:inline text-slate-400 whitespace-nowrap">
+                <span className="hidden md:inline text-zinc-400 whitespace-nowrap">
                   Workspace
                 </span>
-                <span className="hidden md:inline text-slate-300" aria-hidden="true">
+                <span className="hidden md:inline text-zinc-300" aria-hidden="true">
                   /
                 </span>
-                <span className="font-semibold text-slate-900 truncate">
+                <span className="font-semibold text-zinc-950 truncate">
                   {viewTitleMap[activeView]}
                 </span>
                 {activeView === 'workbench' && currentMeeting && (
                   <>
-                    <span className="hidden sm:inline text-slate-300" aria-hidden="true">
+                    <span className="hidden sm:inline text-zinc-300" aria-hidden="true">
                       /
                     </span>
-                    <span className="hidden sm:inline truncate text-slate-600">
+                    <span className="hidden sm:inline truncate text-zinc-600">
                       {currentMeeting.title}
                     </span>
                   </>
@@ -911,9 +911,9 @@ export default function App() {
                 type="button"
                 aria-label="About Developer"
                 onClick={() => setAboutDevModalOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 sm:px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 whitespace-nowrap shrink-0 cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 bg-white px-2.5 sm:px-3 py-1.5 text-xs font-medium text-zinc-800 hover:bg-zinc-100 whitespace-nowrap shrink-0 cursor-pointer"
               >
-                <Info className="h-3.5 w-3.5 text-blue-700" />
+                <Info className="h-3.5 w-3.5 text-zinc-900" />
                 <span className="hidden sm:inline">About Developer</span>
               </button>
 
@@ -925,7 +925,7 @@ export default function App() {
                     setActiveView('workbench');
                     setZeroRetentionNotice(null);
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-3 sm:px-3.5 py-1.5 text-xs font-medium text-white hover:bg-blue-800 whitespace-nowrap shrink-0 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-3 sm:px-3.5 py-1.5 text-xs font-medium text-white hover:bg-zinc-800 whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <Plus className="h-3.5 w-3.5" />
                   <span>New Meeting</span>
@@ -957,10 +957,10 @@ export default function App() {
             {statusBanner && (
               <div
                 role="status"
-                className="flex items-center justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-900"
+                className="flex items-center justify-between gap-3 rounded-lg border border-zinc-900 bg-zinc-950 px-4 py-3 text-xs text-white"
               >
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-700" />
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-white" />
                   <span>{statusBanner}</span>
                 </div>
                 <button
@@ -976,7 +976,7 @@ export default function App() {
             {zeroRetentionNotice && (
               <div
                 role="status"
-                className="flex items-center justify-between gap-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2.5 text-xs text-blue-900"
+                className="flex items-center justify-between gap-3 rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-xs text-zinc-900 shadow-xs"
               >
                 <span>{zeroRetentionNotice}</span>
                 <button
@@ -1084,14 +1084,14 @@ export default function App() {
           </main>
 
           {/* Persistent Governance & Authorship Footer */}
-          <footer className="border-t border-slate-200 bg-white px-4 py-4 sm:px-6">
-            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+          <footer className="border-t border-zinc-200 bg-white px-4 py-4 sm:px-6">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-xs text-zinc-500">
               <span>
                 Engineered & Architected by{' '}
-                <strong className="font-medium text-slate-800">Md Shabbir Mia</strong> •{' '}
+                <strong className="font-medium text-zinc-950">Md Shabbir Mia</strong> •{' '}
                 <a
                   href="mailto:mdshabbirmia520@gmail.com"
-                  className="hover:text-slate-900 hover:underline"
+                  className="hover:text-zinc-950 hover:underline"
                 >
                   mdshabbirmia520@gmail.com
                 </a>{' '}
@@ -1101,21 +1101,21 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setPrivacyModalOpen(true)}
-                  className="hover:text-slate-900 hover:underline cursor-pointer"
+                  className="hover:text-zinc-950 hover:underline cursor-pointer"
                 >
                   Privacy Policy & Terms
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveView('compliance')}
-                  className="hover:text-slate-900 hover:underline cursor-pointer"
+                  className="hover:text-zinc-950 hover:underline cursor-pointer"
                 >
                   Compliance Audit Log
                 </button>
                 <button
                   type="button"
                   onClick={() => setAboutDevModalOpen(true)}
-                  className="hover:text-slate-900 hover:underline cursor-pointer"
+                  className="hover:text-zinc-950 hover:underline cursor-pointer"
                 >
                   About Developer
                 </button>
